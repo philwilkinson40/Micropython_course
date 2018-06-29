@@ -52,7 +52,11 @@ specficially microcontrollers; limited RAM & flash
 
 ### WEMOS D1 mini ###
 
-![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg) ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
+![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg)
+
+---
+
+![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
 ---
 ### interacting with the esp8266 ###
 LINUX / MAC [RSHELL](https://github.com/dhylands/rshell)
