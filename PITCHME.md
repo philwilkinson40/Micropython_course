@@ -59,14 +59,16 @@ specficially microcontrollers; limited RAM & flash
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
 ---
 ### interacting with the esp8266 ###
-LINUX / MAC [RSHELL](https://github.com/dhylands/rshell)
+
+<p style="text-align: left;"> LINUX / MAC [RSHELL](https://github.com/dhylands/rshell) </p>
+
 - simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/)
 
 ```
 sudo pip3 install rshell
 ```
 
-WINDOWS [mpfshell](https://github.com/wendlers/mpfshell) follow [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7)
+<p style="text-align: left;"> WINDOWS [mpfshell](https://github.com/wendlers/mpfshell) follow [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
 
 - other options to interact with the board include:
  - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
