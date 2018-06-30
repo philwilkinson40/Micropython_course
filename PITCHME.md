@@ -90,13 +90,15 @@ other options:
 follow the RSHELL and MPFSHELL guides on the readme.md on the GITHUB pages
 
 launch shell
->rshell --buffer-size=30 -a -p /dev/ttyUSB0
-
+```
+rshell --buffer-size=30 -a -p /dev/ttyUSB0
+```
 list files on d1 mini, then copy a file to the board, then remove
->ls /pyboard </br>
->cp Documents/main.py /pyboard </br>
->rm /pyboard/main.py
-
+```
+ls /pyboard </br>
+cp Documents/main.py /pyboard </br>
+rm /pyboard/main.py
+```
 enter (repl) and leave (ctrl+x) the REPL is easy  
 
 +++
@@ -202,20 +204,20 @@ need to introduce time/utime module to achieve tasks
 ### PWM control of on-board LED ###
 
 ```
->>>from machine import Pin, PWM
->>>import time
+from machine import Pin, PWM
+import time
 
->>>pwm = PWM(Pin(2)) #create PWM object
+pwm = PWM(Pin(2)) #create PWM object
 
->>>pwm.duty(0)       #led is always on
->>>pwm.duty(1023)    #is always off
+pwm.duty(0)       #led is always on
+pwm.duty(1023)    #is always off
 
->>>for i in range (1023):
-      pwm.duty(i)
-      time.sleep(0.01)
+for i in range (1023):
+  pwm.duty(i)
+  time.sleep(0.01)
 
->>>pwm.duty(512)     #set half way in between
->>>pwm.freq(1)       #now set frequency at 1 hz
+pwm.duty(512)     #set half way in between
+pwm.freq(1)       #now set frequency at 1 hz
 
 ```
 
@@ -232,7 +234,7 @@ from machine import Pin, PWM
 
 pwm = PWM(Pin(14), freq=440, duty=512)
 ```
-- Note Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
+Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
 - rhythm is achieved by gaps between tones
 - max frequency available on the D1 mini is only 1000hz
 
@@ -339,53 +341,28 @@ At the moment Kings Park staff have to physically visit every fauna box to check
 
 ---
 
-### case study - WA Surf Lifesaving ###
+### shenton dogs home ###
 
-![](http://www.westernaustralia-travellersguide.com/wp-content/uploads/2013/11/peasholm-street-dog-beach-perth.jpg)
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZiQ8NWKqH_VG6b2_NWdqTJqUh0HK40CVu_On7yyWdfohNLJTo7g)
+![](https://static1.squarespace.com/static/55d675c5e4b0ea1246287574/561d31dae4b00e055e2dad4a/561d31f1e4b07930589695a8/1444753906476/pact-ShentonParkDogRefuge-001.JPG)
+
+---
+
+### Shenton Park  - sensor use case ###
+- alert nearby workers when kennel temp is high
+- alarm nearby workers when kennel temp and humidity is high  
+- provide office workers with 3 minute temperature and humidity readings
+- alert office when kennel temp rises 2C higher
+- write a python script for the office computer to (paho-mqtt)
+
+ensure
+
+- parameters are configurable to site conditions
+
 
 <!--
 
 speaker notes
-WA surf lifesaving has no idea how many people are on beaches they do not patrol. They have to send people to the beach to estimate, wasting lifesaving resources.
 
-If Surf lifesaving could understand the rough numbers of bathers on beaches they do not patrol, they would be able to allocate resources more efficiently.
-
-Tough climate, no wifi, no power, low cost.
-
-what about value add?  UV sensor and a LED matrix display or uSD card logger?
 
 -->
-
----
-### case study - perth bike counters
-![](http://2.bp.blogspot.com/-Hi2dixJwxYM/UzLmmeKRbOI/AAAAAAAABB0/hsZhdQu39uY/s1600/DSC_3735.jpeg)
-
-<!--
-
-speaker notes
-Western Australia aims to get more people cycling more often.  We have a perfact climate for cyclying however we have very low numbers of daily commuters.
-In order to make effective data-driven design decisions that achieve the aim traffic planners need base data.
-
-Perth has only 14 bicycle counters and theses are not actively streaming their data.
-
-A report indicated that a single bicycle counter costs $15k-$5k !!
-http://cdmresearch.com.au/files/reports/0030%20TMR%20Cyclist%20Counter%20Trials%20%28Final-2%29.pdf
-
--->
-
----
-
-### micropython course ###
-
-#### from zero to IOT solution ####
-
- - 4 week introduction course
- - WEMOS D1 Mini - ESP8266 microcontroller
- - aim is to run the course for a wider audience
-
- volunteers?
- <!--
- speaker Notes
- course will be based on
- aim is to learn Micropython by developing an IOT solution
- -->
