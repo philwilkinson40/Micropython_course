@@ -61,7 +61,7 @@ specficially microcontrollers; limited RAM & flash
 
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg)
 
----
++++
 
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
 ---
@@ -99,7 +99,7 @@ list files on d1 mini, then copy a file to the board, then remove
 
 enter (repl) and leave (ctrl+x) the REPL is easy  
 
----
++++
 
 <table>
   <tr>
@@ -196,7 +196,8 @@ need to introduce time/utime module to achieve tasks
 - use a digital signal in an 'analog fashion'
 - Frequency (Hz)is how often a signal switches between low voltage and high voltage.
 - Duty cycle is percent of time that the signal stays at high level (0->1023)
----
+
++++
 
 ### PWM control of on-board LED ###
 
@@ -224,7 +225,7 @@ need to introduce time/utime module to achieve tasks
 ![](https://wiki.wemos.cc/_media/products:d1_mini_shields:buzzer_v1.0.0_1_16x9.jpg)
 Note Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
 
----
++++
 ### using the buzzer shield
 ```
 from machine import Pin, PWM
