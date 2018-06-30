@@ -34,8 +34,15 @@ specficially microcontrollers; limited RAM & flash
   * (Pyboard), ESP8266, ESP32
 
   <!--
-  Speaker Notes:
-  This talk is not covering the background to Micropython, refer to previous talk
+  speaker Notes
+  why use Micropython instead of CPython?
+  cannot use CPython on small, low power hardware
+  Power consumption comparison
+  ~80 mA during connection to WiFi
+  ~15 uA during a deepsleep
+  Raspberry Pi 3 in idle is 0.3A so cannot be run on batteries for a long time
+  GPIO pins allow easy interaction by using modules that provide abstraction
+  Opportunity for Python developers to extend into IOT solutions
 
   Reinterpretation of Cpython means with respect to language syntax, and most of the features of MicroPython are identical to those described by the “Language Reference” documentation at docs.python.org."
 
@@ -215,74 +222,31 @@ need to introduce time/utime module to achieve tasks
 ---
 ### buzzer shield MLT-8540 ###
 ![](https://wiki.wemos.cc/_media/products:d1_mini_shields:buzzer_v1.0.0_1_16x9.jpg)
-Notes; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
+Note Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
 
 ---
-
+### using the buzzer shield
 ```
 from machine import Pin, PWM
 
 pwm = PWM(Pin(14), freq=440, duty=512)
 ```
-- range of notes,
-- rythum is achieved by gaps between tones
-- unfortunately the maximium frequency available on the wemos is only 1000hz
+- Note Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
+- rhythm is achieved by gaps between tones
+- max frequency available on the D1 mini is only 1000hz
 
-Task 1 - develop a two tone alert
-Stretch Task [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) - use the RTTTL library to perform a little 90's ringtone retro using the following string
+TASK develop a two tone alert </br>
+TASK [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) - use the [RTTTL library](https://github.com/dhylands/upy-rtttl) to perform a little 90's ringtone retro using the following string
 'TakeOnMe:d=4,o=4,b=160:8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5,8f#5,8e5,8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5'
 
 ---
-
-<!--
-speaker Notes
-why use Micropython instead of CPython?
-cannot use CPython on small, low power hardware
-Power consumption comparison
-~80 mA during connection to WiFi
-~15 uA during a deepsleep
-Raspberry Pi 3 in idle is 0.3A
-GPIO pins allow easy interaction by using modules that provide abstraction
-Opportunity for Python developers to extend into IOT solutions
--->
-
+### Temperature/Humidity shield DHT12 ###
+![](https://wiki.wemos.cc/_media/products:d1_mini_shields:dht_v3.0.0_1_16x9.jpg)
 
 ---
+### polling sensor ###
 
-![](http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/_images/board.png)
-
-
----
-
-### basic IO interfacing ###
-
- - machine module
- - blink
- - temperature/humidity sensor
- - interrupts; ISR (event and timed)
- - network module
-
-<!--
-speaker Notes
-live demo
-use of the machine module on WEMOS D1 mini devboard
-using a DH12 temp/humidity shield
-
-from machine import Pin
-import time
-led = Pin(2, Pin.OUT)
-led(1)
-led(0)....
-
-for i in range (10):
-    led(0)
-    time.sleep(0.2)
-    led(1)
-    time.sleep(0.2)
-
-
- ```
- example of GPIO and I2C using DHT12 shield
+use [dht12 library](https://github.com/mcauser/micropython-dht12)
 ```
 import time
 import dht12
