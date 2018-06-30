@@ -244,6 +244,10 @@ TASK [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) - use th
 ### Temperature/Humidity shield DHT12 ###
 ![](https://wiki.wemos.cc/_media/products:d1_mini_shields:dht_v3.0.0_1_16x9.jpg)
 
++++
+
+### explaining I2C
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBDoOJjIWX1Yc7QI97_i544-kCm9f78YChK2cItpyyYCXf-JgKlg)
 ---
 ### polling sensor ###
 
@@ -278,7 +282,7 @@ sta.ifconfig()    #should return your IP address
 ```
 +++
 
-### [Star Wars Asciimation](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_tcp.html?highlight=star) ###
+### [Star Wars Asciimation](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_tcp.html?highlight=star) using sockets ###
 
 ```
 import socket
@@ -292,8 +296,33 @@ while True:
 ```
 ---
 
+### [MQTT](http://mqtt.org/) ###
+
+- m2m lightweight messaging protocol
+- publish / subscribe model
+- for connections  where a small code footprint is required
+-  and/or network bandwidth is at a premium.
+
++++
+![](http://www.electronicwings.com/public/images/user_images/images/NodeMCU/NodeMCU%20Basics%20using%20ESPlorer%20IDE/NodeMCU%20MQTT%20Client/MQTT%20Broker%20nw.png)
+---
+
 ![](https://www.postscapes.com/webhook-uploads/1469479748766/sensors.jpg)
 
+---
+### MQTT publish using [uMQTT.simple](https://github.com/micropython/micropython-lib/tree/master/umqtt.simple)
+```
+from simple import MQTTClient
+
+c=MQTTClient('your unique name', 'iot.eclipse.org')
+
+c.connect()
+c.publish('garden/temperature', temp)
+c.disconnect()
+```
+
+
+---
 <!--
 useful reminder of possible sensors that can be used as environmental triggers for IOT devices.
 Don't forget the actuators that could act.  Sometimes it is better to complete edge computing and simply report status changes to the network.
