@@ -68,38 +68,50 @@ specficially microcontrollers; limited RAM & flash
 sudo pip3 install rshell
 ```
 
-<p style="text-align: left;"> WINDOWS [mpfshell](https://github.com/wendlers/mpfshell) follow [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
+<p style="text-align: left;"> WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
 
-- other options to interact with the board include:
- - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
-  - [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
-  - [Mu editor](https://codewith.mu/) (not yet available for ESP)
+other options to interact with the board include:
+
+- [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
+- [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
+- [Mu editor](https://codewith.mu/) (not yet available for ESP)
+
+fallback options for direct interaction with board at [micropython.org](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html)
 
 ---
+
 ### using RSHELL ###
 
 <table>
   <tr>
     <th>command</th>
-    <th>LINUX / MAC RSHELL</th>
-    <th>WINDOWS</th>
+    <th>RSHELL</th>
+    <th>mpfshell</th>
   </tr>
   <tr>
     <td> launch shell </td>
     <td> rshell --buffer-size=30 -a -p /dev/ttyUSB0 </td>
-
-    <td> python {path to mpfshell.py}
-    open COM#  </td>
+    <td> python {path to mpfshell.py} </br> open COM#  </td>
+  </tr>
+  <tr>
+    <td> list files on d1 mini </td>
+    <td> ls /pyboard </td>
+    <td> ls  </td>
+  </tr>  
+  <tr>
+    <td> copy file to d1 mini</td>
+    <td> cp Documents/main.py /pyboard </td>
+    <td> put main.py </br>(main.py must be in local folder) </td>
+  </tr>
+  <tr>
+    <td> enter repl </td>
+    <td> repl </td>
+    <td> repl </td>
   </tr>
   <tr>
     <td> exit repl </td>
     <td> ctrl + x </td>
     <td> ctrl + Q </td>
-  </tr>
-  <tr>
-    <td> copy file </td>
-    <td> cp Documents/main.py /pyboard </td>
-    <td> put main.py   (need to be in local folder contianing main.py) </td>
   </tr>
 </table>
 
