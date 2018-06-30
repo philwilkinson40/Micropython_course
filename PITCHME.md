@@ -191,8 +191,8 @@ need to introduce time/utime module to achieve tasks
 -->
 ---
 
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnyW8YUVyriZAFX--WLV2pevrSCiNkmzugyNtBCF8uUGxcKvM)
 
-![](https://www.mbtechworks.com/wp-uploads/pwm-duty-cycle-1.jpg)
 - use a digital signal in an 'analog fashion'
 - Frequency (Hz)is how often a signal switches between low voltage and high voltage.
 - Duty cycle is percent of time that the signal stays at high level (0->1023)
@@ -261,8 +261,35 @@ while True:
 	print('humidity is: ', sensor.humidity())
 	time.sleep(10)
 ```
--->
+---
+### network module ###
+connecting to local wifi network
+```
+ import network
+ sta = network.WLAN(network.STA_IF)
+ sta.active(True)
+ sta.connect("network-name", "password")
+```
+at this point the d1 mini should be connected to the network
 
+```
+sta.isconnected() #should return True
+sta.ifconfig()    #should return your IP address
+```
++++
+
+### [Star Wars Asciimation](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/network_tcp.html?highlight=star) ###
+
+```
+import socket
+addr_info = socket.getaddrinfo("towel.blinkenlights.nl", 23)
+addr = addr_info[0][-1]
+s = socket.socket()
+s.connect(addr)
+while True:
+   data = s.recv(500)
+   print(str(data, 'utf8'), end='')
+```
 ---
 
 ![](https://www.postscapes.com/webhook-uploads/1469479748766/sensors.jpg)
