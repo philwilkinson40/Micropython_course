@@ -87,7 +87,7 @@ launch shell
 
 list files on d1 mini, then copy a file to the board, then remove
 >ls /pyboard </br>
->cp Documents/main.py /pyboard
+>cp Documents/main.py /pyboard </br>
 >rm /pyboard/main.py
 
 enter (repl) and leave (ctrl+x) the REPL is easy  
@@ -173,17 +173,25 @@ led (1)
 
 ```
 
-- TASK - flash led 5 times
-- TASK - create function of visual indicators for fault finding (use dict/list)
-
+- TASK flash led 5 times
+- TASK create function of visual indicators for fault finding
+  - program running OK, fault in network connection, cannot read sensor
+  - (use dict/list)
+<!--
+Speaker Notes
+the onboard led is connected to GPIO2 which has a pull up resistor, so the led is on when the signal is pushed low
+need to introduce time/utime module to achieve tasks
+-->
 ---
 
 
 ![](https://www.mbtechworks.com/wp-uploads/pwm-duty-cycle-1.jpg)
-- use a digital signal in an 'analog fashion' to control circuitry
+- use a digital signal in an 'analog fashion'
 - Frequency (Hz)is how often a signal switches between low voltage and high voltage.
-- Duty cycle is percent of time that the signal stays at high level.
+- Duty cycle is percent of time that the signal stays at high level (0->1023)
 ---
+
+### PWM control of on-board LED ###
 
 ```
 >>>from machine import Pin, PWM
@@ -191,25 +199,26 @@ led (1)
 
 >>>pwm = PWM(Pin(2)) #create PWM object
 
->>>pwm.duty(0) #the is always on
->>>pwm.duty(1023) # is always off
+>>>pwm.duty(0)       #led is always on
+>>>pwm.duty(1023)    #is always off
 
 >>>for i in range (1023):
       pwm.duty(i)
       time.sleep(0.01)
 
->>>pwm.duty(512)  #set half way inbetween
->>>pwm.freq(1) now the frequency is set at 1 hz
+>>>pwm.duty(512)     #set half way in between
+>>>pwm.freq(1)       #now set frequency at 1 hz
 
 ```
 
----
 
 ---
-### buzzer shield ###
--introduce shields for the WEMOS d1 Mini
--introduce the buzzer and datasheet
--
+### buzzer shield MLT-8540 ###
+![](https://wiki.wemos.cc/_media/products:d1_mini_shields:buzzer_v1.0.0_1_16x9.jpg)
+Notes; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
+
+---
+
 ```
 from machine import Pin, PWM
 
