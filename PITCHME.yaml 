@@ -1,0 +1,18 @@
+
+theme : night
+
+layout : top - left
+
+logo : assets/images/logo.png
+
+theme-override : assets/css/PITCHME.css
+
+transition : none
+
+highlight : ir-black
+
+charts : true
+
+mathjax : TeX-AMS_HTML-full
+
+published : true
