@@ -50,7 +50,7 @@ specficially microcontrollers; limited RAM & flash
 
 ---
 
-### WEMOS D1 mini ###
+### [D1 mini](https://wiki.wemos.cc/products:d1:d1_mini) ###
 
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg)
 
@@ -70,17 +70,29 @@ sudo pip3 install rshell
 
 <p style="text-align: left;"> WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
 
-other options to interact with the board include:
-
+other options:
 - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
 - [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
 - [Mu editor](https://codewith.mu/) (not yet available for ESP)
-
-fallback options for direct interaction with board at [micropython.org](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html)
+- direct interaction with board: [micropython.org](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html)
 
 ---
 
-### using RSHELL ###
+### using the SHELL ###
+
+follow the RSHELL and MPFSHELL guides on the readme.md on the GITHUB pages
+
+launch shell
+>rshell --buffer-size=30 -a -p /dev/ttyUSB0
+
+list files on d1 mini, then copy a file to the board, then remove
+>ls /pyboard </br>
+>cp Documents/main.py /pyboard
+>rm /pyboard/main.py
+
+enter (repl) and leave (ctrl+x) the REPL is easy  
+
+---
 
 <table>
   <tr>
@@ -129,12 +141,26 @@ fallback options for direct interaction with board at [micropython.org](https://
 
 <!--
 speaker Notes
-participants should exit this slide being able to enter repl execute code and return to shell
+participants should exit this slide being able to enter repl, execute code and return to shell
+also be able to use a text editor and paste function in repl
 -->
 
 ---
 
-### basics - GPIO Output ###
+### basics - esp8266 modules ###
+
+- esp
+- machine
+- network, uOS, gc
+
+<!--
+speaker Notes
+introduction to micropython specific modules
+understand the 'u' prefix
+get help at http://docs.micropython.org/en/v1.9.2/esp8266/index.html
+-->
+---
+### 'hello world' of microcontrollers ###
 
 D1 mini has its own LED connected to GPIO2 (D4)
 
@@ -146,11 +172,17 @@ led (0)
 led (1)
 
 ```
-TASK 1 - get the led to flash 5 times
+
+- TASK - flash led 5 times
+- TASK - create function of visual indicators for fault finding (use dict/list)
 
 ---
-###  Pulse Width Modulation ###
-INSERT figure explaining PWM duty cycles and frequency
+
+
+![](https://www.mbtechworks.com/wp-uploads/pwm-duty-cycle-1.jpg)
+- use a digital signal in an 'analog fashion' to control circuitry
+- Frequency (Hz)is how often a signal switches between low voltage and high voltage.
+- Duty cycle is percent of time that the signal stays at high level.
 ---
 
 ```
