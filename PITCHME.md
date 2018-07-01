@@ -10,7 +10,7 @@ Short personal introduction
 short intro course in Micropython,
 
 note that much of the tech info provided here is taken from micropython.org
-the course borrows heavily from Radomir's course for the WEMOS D1 mini
+the course borrows heavily from Radomir's course for the D1 mini
 http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 
 
@@ -26,12 +26,9 @@ optimised to run in *constrained environments*
 specficially microcontrollers; limited RAM & flash
 
 - PDPD [MeetUp talk by Adrian](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/237034592/) in 2017
+PDPD [MeetUp talk by Phil]() in March 2018
 - [micropython.org website](https://micropython.org) and [forum](https://forum.micropython.org/)
-- important forks:
-  * [MicroBit](http://microbit.org/) (education)
-  * [Pycom](https://pycom.io/) (wireless communications)
-  * [Adafruit's Circuitpython](https://learn.adafruit.com/welcome-to-circuitpython/what-is-circuitpython) (electronic makers)
-  * (Pyboard), ESP8266, ESP32
+
 
   <!--
   speaker Notes
