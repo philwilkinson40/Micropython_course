@@ -330,14 +330,15 @@ c.disconnect()
 
 +++
 
-if you want to download a simple MQTT client on your laptop, consider mosquitto 
+if you want to download a simple MQTT client on your laptop, consider mosquitto
 
 ```
 sudo apt-get install mosquitto mosquitto-clients
 
 mosquitto_sub -h 'iot.eclipse.org' -t RIFF/#
-```
 
+```
+a good simple phone MQTT client is MQTT
 ---
 
 ### shenton dogs home ###
