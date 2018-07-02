@@ -1,10 +1,11 @@
-
-
+Big thanks to this event supporters
 ![](https://www.perth.wa.gov.au/sites/default/files/styles/medium_rounded_corners/public/news/thumbnails/cop-logo-newsroom-thumbnail-new.jpg?itok=qZOGls4g)
 
 ![](https://uploads-ssl.webflow.com/5a04456bb45010000164c58f/5ac6e8a1e4871de747635287_Screen%20Shot%202018-04-06%20at%2011.24.58%20am-p-500.png)
 
-Big thanks to this event supporters
+
+
+---
 
 ### Micropython Intro - PDPD July 2018###
 ![](https://docs.pycom.io/img/micropython.jpg)
