@@ -18,7 +18,7 @@ http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 
 ---
 
-### micropython ###
+### [micropython](https://micropython.org) and [forum](https://forum.micropython.org/) ###
 
 *Reinterpretation* of Python 3.4
 optimised to run in *constrained environments*
@@ -26,8 +26,8 @@ optimised to run in *constrained environments*
 specficially microcontrollers; limited RAM & flash
 
 - PDPD [MeetUp talk by Adrian](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/237034592/) in 2017
-PDPD [MeetUp talk by Phil]() in March 2018
-- [micropython.org website](https://micropython.org) and [forum](https://forum.micropython.org/)
+- PDPD [MeetUp talk by Phil](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/250001244/) in May 2018
+- PDPD [solder session](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/251611417/) - soldering and [flashing micropython firmware](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#getting-the-firmware)
 
 
   <!--
@@ -57,6 +57,13 @@ PDPD [MeetUp talk by Phil]() in March 2018
 ### [D1 mini](https://wiki.wemos.cc/products:d1:d1_mini) ###
 
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg)
+
+<!--
+speaker Notes
+discuss UART, SPI, I2C, A0
+pinout diagram
+
+-->
 
 +++
 
@@ -92,8 +99,8 @@ rshell --buffer-size=30 -a -p /dev/ttyUSB0
 ```
 list files on d1 mini, then copy a file to the board, then remove
 ```
-ls /pyboard </br>
-cp Documents/main.py /pyboard </br>
+ls /pyboard
+cp Documents/main.py /pyboard
 rm /pyboard/main.py
 ```
 enter (repl) and leave (ctrl+x) the REPL is easy  
@@ -155,9 +162,10 @@ also be able to use a text editor and paste function in repl
 
 ### basics - esp8266 modules ###
 
-- esp
-- machine
-- network, uOS, gc
+- esp8266 modules
+ - esp, machine
+- micropython modules
+ - gc, uos, network, etc
 
 <!--
 speaker Notes
@@ -320,27 +328,28 @@ c.publish('garden/temperature', temp)
 c.disconnect()
 ```
 
++++
 
----
-<!--
-useful reminder of possible sensors that can be used as environmental triggers for IOT devices.
-Don't forget the actuators that could act.  Sometimes it is better to complete edge computing and simply report status changes to the network.
+if you want to download a simple MQTT client on your laptop, consider mosquitto 
 
--->
+```
+sudo apt-get install mosquitto mosquitto-clients
 
-<!--
-### case study - Kings Park fauna boxes
-
-![](https://www.fairfaxstatic.com.au/content/dam/images/g/r/h/1/k/n/image.related.articleLeadwide.620x349.grh1jp.png/1473980446152.jpg)
-
-At the moment Kings Park staff have to physically visit every fauna box to check it is occupied.  
--->
+mosquitto_sub -h 'iot.eclipse.org' -t RIFF/#
+```
 
 ---
 
 ### shenton dogs home ###
+![](http://www.dogshome.org.au/themes/blackcandy/images/dogs-home-perth.gif)
 
-![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZiQ8NWKqH_VG6b2_NWdqTJqUh0HK40CVu_On7yyWdfohNLJTo7g)
+ <!--
+ speaker notes -
+lets transfer our knowledge on the d1 mini to a real use case
+ -->
+
+
++++
 ![](https://static1.squarespace.com/static/55d675c5e4b0ea1246287574/561d31dae4b00e055e2dad4a/561d31f1e4b07930589695a8/1444753906476/pact-ShentonParkDogRefuge-001.JPG)
 
 ---
@@ -349,17 +358,5 @@ At the moment Kings Park staff have to physically visit every fauna box to check
 - alert nearby workers when kennel temp is high
 - alarm nearby workers when kennel temp and humidity is high  
 - provide office workers with 3 minute temperature and humidity readings
-- alert office when kennel temp rises 2C higher
+- alert office when kennel temp is high
 - write a python script for the office computer to (paho-mqtt)
-
-ensure
-
-- parameters are configurable to site conditions
-
-
-<!--
-
-speaker notes
-
-
--->
