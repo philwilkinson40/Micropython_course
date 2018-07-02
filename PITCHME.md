@@ -13,7 +13,6 @@ note that much of the tech info provided here is taken from micropython.org
 the course borrows heavily from Radomir's course for the D1 mini
 http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 
-
 -->
 
 ---
@@ -81,7 +80,7 @@ sudo pip3 install rshell
 
 <p style="text-align: left;"> WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
 
-other options:
+<p style="text-align: left;"> other options: </p>
 - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
 - [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
 - [Mu editor](https://codewith.mu/) (not yet available for ESP)
@@ -197,7 +196,7 @@ the onboard led is connected to GPIO2 which has a pull up resistor, so the led i
 need to introduce time/utime module to achieve tasks
 -->
 ---
-
+### PWM - Pulse Width Modulation ###
 ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGnyW8YUVyriZAFX--WLV2pevrSCiNkmzugyNtBCF8uUGxcKvM)
 
 - use a digital signal in an 'analog fashion'
@@ -228,23 +227,28 @@ pwm.freq(1)       #now set frequency at 1 hz
 
 
 ---
+
 ### buzzer shield MLT-8540 ###
 ![](https://wiki.wemos.cc/_media/products:d1_mini_shields:buzzer_v1.0.0_1_16x9.jpg)
-Note Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
+
 
 +++
 ### using the buzzer shield
 ```
 from machine import Pin, PWM
+import time
 
 pwm = PWM(Pin(14), freq=440, duty=512)
+time.sleep(1)
+pwm.deinit()
+
 ```
 Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523,
 - rhythm is achieved by gaps between tones
 - max frequency available on the D1 mini is only 1000hz
 
-TASK develop a two tone alert </br>
-TASK [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) - use the [RTTTL library](https://github.com/dhylands/upy-rtttl) to perform a little 90's ringtone retro using the following string
+- TASK develop a two tone alert
+- TASK [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) use the [RTTTL library](https://github.com/dhylands/upy-rtttl) to perform a little 90's ringtone retro using the following string
 'TakeOnMe:d=4,o=4,b=160:8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5,8f#5,8e5,8f#5,8f#5,8f#5,8d5,8p,8b,8p,8e5,8p,8e5,8p,8e5,8g#5,8g#5,8a5,8b5,8a5,8a5,8a5,8e5,8p,8d5,8p,8f#5,8p,8f#5,8p,8f#5,8e5,8e5'
 
 ---
@@ -255,7 +259,9 @@ TASK [RTTTL](https://en.wikipedia.org/wiki/Ring_Tone_Transfer_Language) - use th
 
 ### explaining I2C
 ![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBDoOJjIWX1Yc7QI97_i544-kCm9f78YChK2cItpyyYCXf-JgKlg)
----
+
++++
+
 ### polling sensor ###
 
 use [dht12 library](https://github.com/mcauser/micropython-dht12)
@@ -272,6 +278,10 @@ while True:
 	print('humidity is: ', sensor.humidity())
 	time.sleep(10)
 ```
+
+TASK establish mean temperature across 2 mins polling every 20 seconds
+
+
 ---
 ### network module ###
 connecting to local wifi network
@@ -312,19 +322,17 @@ while True:
 
 +++
 ![](http://www.electronicwings.com/public/images/user_images/images/NodeMCU/NodeMCU%20Basics%20using%20ESPlorer%20IDE/NodeMCU%20MQTT%20Client/MQTT%20Broker%20nw.png)
----
 
-![](https://www.postscapes.com/webhook-uploads/1469479748766/sensors.jpg)
-
----
++++
 ### MQTT publish using [uMQTT.simple](https://github.com/micropython/micropython-lib/tree/master/umqtt.simple)
-```
-from simple import MQTTClient
 
-c=MQTTClient('your unique name', 'iot.eclipse.org')
+```
+from umqtt.simple import MQTTClient
+
+c=MQTTClient('phil_sensor', 'iot.eclipse.org') #default port is 1883
 
 c.connect()
-c.publish('garden/temperature', temp)
+c.publish('RIFF/phil/temperature', temp)
 c.disconnect()
 ```
 
@@ -338,10 +346,11 @@ sudo apt-get install mosquitto mosquitto-clients
 mosquitto_sub -h 'iot.eclipse.org' -t RIFF/#
 
 ```
-a good simple phone MQTT client is MQTT
+a good simple phone MQTT client is [MQTT dashboard](https://play.google.com/store/apps/details?id=com.thn.iotmqttdashboard&hl=en_AU) for Android
+
 ---
 
-### shenton dogs home ###
+### Shenton Park Dogs' Refuge Home ###
 ![](http://www.dogshome.org.au/themes/blackcandy/images/dogs-home-perth.gif)
 
  <!--
@@ -355,9 +364,10 @@ lets transfer our knowledge on the d1 mini to a real use case
 
 ---
 
-### Shenton Park  - sensor use case ###
-- alert nearby workers when kennel temp is high
-- alarm nearby workers when kennel temp and humidity is high  
+### Shenton Park Dogs' Refuge Home - use case ###
+- alert nearby workers when a kennel temp is high
+- alarm nearby workers when a kennel temp and humidity is high
 - provide office workers with 3 minute temperature and humidity readings
-- alert office when kennel temp is high
-- write a python script for the office computer to (paho-mqtt)
+- give audible and visual alert in office when kennel temp is high
+- provide phone alert if temp/humidity rises out of office hours
+- write a python script for the office computer to record data over a (paho-mqtt library)
