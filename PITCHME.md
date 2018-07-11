@@ -86,7 +86,7 @@ pinout diagram
   ```
     - WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7)
 
-RSHELL is simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/)
+<p style="text-align: left;"> RSHELL is simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/) </p>
 
 +++
 
@@ -172,7 +172,7 @@ also be able to use a text editor and paste function in repl
 ### basics - esp8266 modules ###
 
 - esp8266 modules
- - esp, machine
+ - esp, [machine](https://docs.micropython.org/en/latest/esp8266/library/machine.html)
 - micropython modules
  - gc, uos, network, etc
 
@@ -197,9 +197,7 @@ led (1)
 ```
 
 - TASK flash led 5 times
-- TASK create function of visual indicators for fault finding
-  - program running OK, fault in network connection, cannot read sensor
-  - (use dict/list)
+- TASK create functions to support fault finding (program running OK, fault in network connection, cannot read sensor, etc)
 <!--
 Speaker Notes
 the onboard led is connected to GPIO2 which has a pull up resistor, so the led is on when the signal is pushed low
