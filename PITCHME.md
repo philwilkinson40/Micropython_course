@@ -74,20 +74,23 @@ pinout diagram
 +++
 
 ![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
+
 ---
+
 ### interacting with the esp8266 ###
+1.  WINDOWS/OSX install [drivers](https://wiki.wemos.cc/downloads)
+1.  - linux/OSX download rhsell
 
-<p style="text-align: left;"> LINUX / MAC [RSHELL](https://github.com/dhylands/rshell) </p>
+  ```
+  sudo pip3 install rshell
+  ```
+    - WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7)
 
-- simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/)
+RSHELL is simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/)
 
-```
-sudo pip3 install rshell
-```
++++
 
-<p style="text-align: left;"> WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7) </p>
-
-<p style="text-align: left;"> other options: </p>
+<p style="text-align: left;"> other options for interacting with ESP8266: </p>
 - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
 - [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
 - [Mu editor](https://codewith.mu/) (not yet available for ESP)
@@ -95,21 +98,21 @@ sudo pip3 install rshell
 
 ---
 
-### using the SHELL ###
+### using RSHELL ###
 
-follow the RSHELL and MPFSHELL guides on the readme.md on the GITHUB pages
-
+- follow the RSHELL and MPFSHELL guides on the readme.md on the GITHUB pages
+- identify the correct port connected ls /dev/
 launch shell
 ```
 rshell --buffer-size=30 -a -p /dev/ttyUSB0
 ```
-list files on d1 mini, then copy a file to the board, then remove
+- list files on d1 mini, then copy a file to the board, then remove
 ```
 ls /pyboard
 cp Documents/main.py /pyboard
 rm /pyboard/main.py
 ```
-enter (repl) and leave (ctrl+x) the REPL is easy  
+- enter (repl) and leave (ctrl+x) the REPL is easy  
 
 +++
 
