@@ -340,8 +340,32 @@ from umqtt.simple import MQTTClient
 c=MQTTClient('phil_sensor', 'iot.eclipse.org') #default port is 1883
 
 c.connect()
-c.publish('RIFF/phil/temperature', temp)
+c.publish('RIFF/phil/temperature', 'here is my data')
 c.disconnect()
+```
+
++++
+
+so develop your own temperature/humidity node!
+```
+import time
+import dht12
+from machine import I2C, Pin
+from umqtt.simple import MQTTClient
+
+i2c = I2C(scl=Pin(5), sda=Pin(4))
+sensor = dht12.DHT12(i2c)
+c=MQTTClient('phil_sensor', 'iot.eclipse.org')
+
+while True:
+	sensor.measure()
+	print('temp is: ', sensor.temperature())
+	print('humidity is: ', sensor.humidity())
+  c.connect()
+  c.publish('RIFF/phil/temperature', (sensor.temperature()))
+  c.publish('RIFF/phil/humidity', (sensor.humidity())
+  c.disconnect()
+	time.sleep(10)
 ```
 
 +++
