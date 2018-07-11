@@ -1,0 +1,21 @@
+stuff for micropython workshop
+
+####
+
+from microbit import *
+display.scroll("")
+
+####
+
+from machine import Pin
+import time
+
+led = Pin(2, Pin.OUT)
+
+for i in range(5):
+    led(0)
+    time.sleep(1)
+    led(1)
+    time.sleep(1)
+
+####
