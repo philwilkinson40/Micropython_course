@@ -1,0 +1,27 @@
+Micropython MeetUp Workshop
+All, we will take off where we finished in the intro workshop.  
+Lets finish helping Shenton Dogs Home with their kennel hot weather management system.  
+
+New Micropython stuff 
+-Interrupt Service Routines. Timer Interrupts
+
+New Hardware Ideas
+-daisy chain up multiple sensors on the i2c bus
+
+
+The use case is a cost-effective temperature and humidity monitoring/logging IOT system.
+
+User Requirements; the system shall...
+1) alert nearby workers when a particular kennel temp is too high
+2) alarm nearby workers when a kennel temp and humidity is high
+3) provide office workers with temperature and humidity readings; updated every 3 mins
+4) provide audible and visual alerts in office when any kennel temp is high
+5) log temperature and humidity readings into a file. Low memory, easy to extract, not likely to become obselete, etc,etc
+6) facilitate remote alerts if temp/humidity rises out of office hours
+
+don't forget
+A) use config files to minimise/simplify future modifications (e.g. 'high' temp/humidity levels)
+B) office-based functionality can utilise microcontrollers using Micropython or old computers running  CPython 
+C) paho-mqtt library for C Python
+
+
