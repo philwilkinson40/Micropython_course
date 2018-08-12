@@ -10,7 +10,7 @@ def handleInterrupt(timer):
   global interruptCounter
   interruptCounter = interruptCounter+1
 
-timer.init(period=1000, mode=machine.Timer.PERIODIC, callback=handleInterrupt)
+timer.init(period=10000, mode=machine.Timer.PERIODIC, callback=handleInterrupt)
 
 while True:
   if interruptCounter>0:
