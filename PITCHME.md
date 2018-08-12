@@ -33,7 +33,8 @@ triggered as a result of
 - a timer
 - a pin state change
 
-can occur while the system is in idle
+can occur while the system is in idle/sleep
+
 ---
 
 ```python
@@ -61,9 +62,47 @@ while True:
 
     #do something here
 
+
     totalInterruptsCounter = totalInterruptsCounter+1
     print("Interrupt has occurred " + str(totalInterruptsCounter)+ ' times.')
-    machine.sleep()
+    machine.idle() # also try machine.sleep()
+```
++++
+
+```python
+import machine
+import micropython
+import dht12
+from machine import I2C, Pin
+
+micropython.alloc_emergency_exception_buf(100)
+
+interruptCounter = 0
+totalInterruptsCounter = 0
+
+def handleInterrupt(timer):
+  global interruptCounter
+  interruptCounter = interruptCounter+1
+
+timer = machine.Timer(0)
+timer.init(period=10000, mode=machine.Timer.PERIODIC, callback=handleInterrupt)
+i2c = I2C(scl=Pin(5), sda=Pin(4))
+sensor = dht12.DHT12(i2c)
+
+
+while True:
+  if interruptCounter>0:
+    state = machine.disable_irq()
+    interruptCounter = interruptCounter-1
+    machine.enable_irq(state)
+
+    #do something here
+    sensor.measure()
+    print('temp is: ', sensor.temperature())
+
+    totalInterruptsCounter = totalInterruptsCounter+1
+    print("Interrupt has occurred " + str(totalInterruptsCounter)+ ' times.')
+    machine.idle()
 ```
 
 ---
@@ -73,13 +112,13 @@ while True:
 - Avoid memory allocation: no appending to lists or insertion into dictionaries, no floating point.
 - Where an ISR returns multiple bytes use a pre-allocated bytearray..
 Where data is shared between the main program and an ISR, consider disabling interrupt prior to accessing the data in the main program and re-enabling them immediately afterwards
-- Allocate an emergency exception buffer
+- Allocate an emergency exception buffer to get error messages
 
 +++
 
-### Interrupt Service Routines - References
-- micropython.org
--
+### Interrupt Service Routines - Further Info
+- [micropython.org](http://docs.micropython.org/en/v1.9.3/esp8266/reference/isr_rules.html)
+- [Tim Head's talk](https://www.youtube.com/watch?v=D-5V7s0GflU&t=1657s) at 2017 Pycon
 
 ---
 
@@ -111,7 +150,7 @@ pwm.deinit()
 ### Temperature/Humidity shield DHT12 ###
 ![](https://wiki.wemos.cc/_media/products:d1_mini_shields:dht_v3.0.0_1_16x9.jpg)
 
----
++++
 
 ### polling dht sensor ###
 
@@ -163,7 +202,7 @@ c.publish('RIFF/kennel3/temperature', '24')
 c.disconnect()
 ```
 
----
++++
 
 so develop your own temperature/humidity node!
 
@@ -188,7 +227,7 @@ while True:
     time.sleep(10)
 ```
 
-+++
+---
 
 if you want to download a simple MQTT client on your laptop, consider mosquitto
 
