@@ -109,9 +109,8 @@ while True:
 
 ### ISR Guidance
 - Keep the code as short and simple as possible
-- Avoid memory allocation: no appending to lists or insertion into dictionaries, no floating point.
-- Where an ISR returns multiple bytes use a pre-allocated bytearray..
-Where data is shared between the main program and an ISR, consider disabling interrupt prior to accessing the data in the main program and re-enabling them immediately afterwards
+- Avoid memory allocation: no appending to lists or insertion into dictionaries, no floating point
+- Where data is shared between the main program and an ISR, consider disabling interrupt prior to accessing the data in the main program and re-enabling them immediately afterwards
 - Allocate an emergency exception buffer to get error messages
 
 +++
@@ -168,8 +167,18 @@ while True:
 	print('humidity is: ', sensor.humidity())
 	time.sleep(10)
 ```
+---
+### uniquely identifing your D1 mini
+```python
+import network
 
+wlan = network.WLAN()
+wlan.config('mac')
 
+#or for the value in hex
+import ubinascii
+ubinascii.hexlify(wlan.config('mac')).decode()
+```
 
 ---
 ### network library ###
@@ -186,7 +195,6 @@ at this point the d1 mini should be connected to the network
 sta.isconnected() #should return True
 sta.ifconfig()    #should return your IP address
 ```
-include here the esp method for unique_id
 
 ---
 
