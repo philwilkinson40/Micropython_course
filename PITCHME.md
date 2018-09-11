@@ -60,38 +60,19 @@ Big thanks to this event supporters
 
 ---?code=code/boot.py&title=boot file
 
----
-in boot.py
-```
-import network
-import time
-
-sta = network.WLAN(network.STA_IF)
-sta.active(True)
-sta.connect("SSID", "password")
-if not sta.isconnected():
-    time.sleep(0.5)
-```
-and in main.py
-
 ---?code=code/main_regularex.py&title=regular main.py file
 
+<!-- example code for Regular 'always on' Node -->
 ---
-### power usage - Regular Mode
-- using a [18650 LiPo bought from Bunnings](https://www.bunnings.com.au/solar-magic-3-2v-600mah-14500-lithium-batteries-2-pack_p4351891)
+![](flowcharts/regular_powerchart.gif)
 
-- approx 80mA draw at 3.3V
-# insert power graph here
-
-3.7V x 2.2Ahr = 3.3V x 0.080A x battery life
-
-- battery life = (3.7x2.2)/(3.3x0.08)= 31 hours
+- using a [18650 LiPo bought from Bunnings](https://www.bunnings.com.au/solar-magic-2200mah-lithium-ion-rechargeable-batteries-2-pack_p4352437)
+- 3.7V x 2.2Ahr = 3.3V x 0.080A x battery life
+- battery life = (3.7x2.2)/(3.3x0.08) max=31 hours
 ---
 
-
----
 ### Modem Sleep Mode
-- from [Espressif datasheet](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf) 
+- from [Espressif ESP8266  datasheet](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf)
 ![](flowcharts/ESP8266_blockdia.png)
 
 ---
@@ -99,53 +80,13 @@ and in main.py
 ![](flowcharts/modem_sleep.gif)
 
 ---
+---?code=code/main_modemsleepex.py&title= using Modem Sleep  main_modemsleepex.py
 
-```
-from machine import Pin, I2C
-from dht12 import DHT12
-from umqtt.simple import MQTTClient
-import time
-import network
-import esp
-
-def poll_sensor():
-    i2c = I2C(scl = Pin(5), sda = Pin(4))
-    sensor = DHT12(i2c)
-    sensor.measure()
-    t = sensor.temperature()
-    h = sensor.humidity()
-    return t, h
-
-def wifi_init():
-    sta = network.WLAN(network.STA_IF)
-    sta.active(True)
-    sta.connect("SSID", "password")
-    if not sta.isconnected():
-        time.sleep(0.5)
-
-def publish(t, h):
-    c=MQTTClient('my_sensor', 'iot.eclipse.org') #change my_sensor!
-    c.connect()
-    c.publish('RIFF/phil/temperature', str(t)) # change the topic tree!
-    c.publish('RIFF/phil/humidity', str(h)) # change the topic tree!
-    c.disconnect()
-
-def wifi_deinit():
-    sta = network.WLAN(network.STA_IF)
-    sta.active(False)
-
-esp.sleep_type(esp.SLEEP_MODEM) #all sleep is modem sleep
-while True:
-    t, h = poll_sensor()
-    wifi_init()
-    publish(t, h)
-    wifi_deinit()
-    time.sleep(60)
-```
-
-<!-- comments here
+<!-- code to switch off wifi when not in use
 -->
+---
 
+![](flowcharts/modem_powerchart.gif)
 - 5s in each minute to connect to wifi and publish
 - LiPo life approx 153hrs (6.4 days)
 
