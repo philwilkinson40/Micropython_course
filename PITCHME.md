@@ -78,9 +78,8 @@ and in main.py
 
 ---
 ### power usage - Regular Mode
-- using a 18650 LiPo bought from Bunnings
+- using a [18650 LiPo bought from Bunnings](https://www.bunnings.com.au/solar-magic-3-2v-600mah-14500-lithium-batteries-2-pack_p4351891)
 
-# insert photo of lipo here
 - approx 80mA draw at 3.3V
 # insert power graph here
 
@@ -92,7 +91,8 @@ and in main.py
 
 ---
 ### Modem Sleep Mode
-# insert pic of esp8266 FBD
+- from [Espressif datasheet](https://www.espressif.com/sites/default/files/documentation/0a-esp8266ex_datasheet_en.pdf) 
+![](flowcharts/ESP8266_blockdia.png)
 
 ---
 
