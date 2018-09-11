@@ -1,125 +1,213 @@
- ### Micropython MeetUp - PDPD August 2018
+ ### Micropython MeetUp - PDPD August 2018 - Low Power Mode Options ESP8266
 ![](https://docs.pycom.io/img/micropython.jpg)
 
 <!--
-MeetUp workshop to complete the use case introduced in the initial introduction session
+MeetUp workshop to discuss Deep-sleep mode and RTC.memory on ESP8266
 -->
+
+Big thanks to this event supporters
+
+![](https://uploads-ssl.webflow.com/5a04456bb45010000164c58f/5ac6e8a1e4871de747635287_Screen%20Shot%202018-04-06%20at%2011.24.58%20am-p-500.png)
+
 
 ---
 
-### Information Sources
-
+### PDPD Micropython News
+- two sessions; ongoing workshop at Artisfactory
+- good talks at [Pycon-AU] by Damien and ???
+- also at Europython by ???
+### Need links here ###
 - [micropython website ](https://micropython.org) and [forum](https://forum.micropython.org/)
 - PDPD Micropython [Github repo](https://github.com/philwilkinson40/Micropython_course)
 - Adafruit and Core electronics offer good online tutorials
-- will anyone use a list of online resources?
 
 ---
 
 ### interacting with the esp8266 ###
 
-1. REPL interaction via serial USB: [micropython.org](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html)
-2. file transfer to/from onboard
- - [RSHELL](https://github.com/dhylands/rshell) is a simple shell, developed in python; good support on [Micropython forum](https://forum.micropython.org/)  
- - [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7)
- - [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
- - [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
+- refer to previous workshops Github
+- DHT12 sensor and networking
+
+---
+### IOT based solutions
+# graphic required
+- low cost microcontrollers
+- connected devices
+- **low power**
+
+<!-- the expected massive explosion in IOT devices relies on three legs.  We will investigate the final leg; Low Power -->
+
+---
+### use case - environmental sensor
+# need photo here
+- temperature and humidity readings
+- reading every minute
+- placed within wifi range
+- no power available; batteries only
 
 ---
 
-### ISR Interupt Service Routines
-defined as callback functions
-triggered as a result of
-- a timer
-- a pin state change
-
-can occur while the system is in idle/sleep
+### Regular Mode
+- ESP8266 on; wifi connected
+- use time module to sleep between polls
+ - or timer callback functions
 
 ---
 
-```python
-##example of using irq and callback
-import machine
-import micropython
+![](flowcharts/basic_flow.gif)
 
-micropython.alloc_emergency_exception_buf(100)
+---
 
-interruptCounter = 0
-totalInterruptsCounter = 0
+---?code=code/boot.py&title=boot file
 
-def handleInterrupt(timer):
-  global interruptCounter
-  interruptCounter = interruptCounter+1
-
-timer = machine.Timer(0)
-timer.init(period=10000, mode=machine.Timer.PERIODIC, callback=handleInterrupt)
-
-while True:
-  if interruptCounter>0:
-    state = machine.disable_irq()
-    interruptCounter = interruptCounter-1
-    machine.enable_irq(state)
-
-    #do something here
-
-
-    totalInterruptsCounter = totalInterruptsCounter+1
-    print("Interrupt has occurred " + str(totalInterruptsCounter)+ ' times.')
-    machine.idle() # also try machine.sleep()
+---
+in boot.py
 ```
-+++
+import network
+import time
 
-```python
-import machine
-import micropython
-import dht12
-from machine import I2C, Pin
+sta = network.WLAN(network.STA_IF)
+sta.active(True)
+sta.connect("SSID", "password")
+if not sta.isconnected():
+    time.sleep(0.5)
+```
+and in main.py
 
-micropython.alloc_emergency_exception_buf(100)
+---?code=code/main_regularex.py&title=regular main.py file
 
-interruptCounter = 0
-totalInterruptsCounter = 0
+---
+### power usage - Regular Mode
+- using a 18650 LiPo bought from Bunnings
 
-def handleInterrupt(timer):
-  global interruptCounter
-  interruptCounter = interruptCounter+1
+# insert photo of lipo here
+- approx 80mA draw at 3.3V
+# insert power graph here
 
-timer = machine.Timer(0)
-timer.init(period=10000, mode=machine.Timer.PERIODIC, callback=handleInterrupt)
-i2c = I2C(scl=Pin(5), sda=Pin(4))
-sensor = dht12.DHT12(i2c)
+3.7V x 2.2Ahr = 3.3V x 0.080A x battery life
+
+- battery life = (3.7x2.2)/(3.3x0.08)= 31 hours
+---
 
 
-while True:
-  if interruptCounter>0:
-    state = machine.disable_irq()
-    interruptCounter = interruptCounter-1
-    machine.enable_irq(state)
+---
+### Modem Sleep Mode
+# insert pic of esp8266 FBD
 
-    #do something here
+---
+
+![](flowcharts/modem_sleep.gif)
+
+---
+
+```
+from machine import Pin, I2C
+from dht12 import DHT12
+from umqtt.simple import MQTTClient
+import time
+import network
+import esp
+
+def poll_sensor():
+    i2c = I2C(scl = Pin(5), sda = Pin(4))
+    sensor = DHT12(i2c)
     sensor.measure()
-    print('temp is: ', sensor.temperature())
+    t = sensor.temperature()
+    h = sensor.humidity()
+    return t, h
 
-    totalInterruptsCounter = totalInterruptsCounter+1
-    print("Interrupt has occurred " + str(totalInterruptsCounter)+ ' times.')
-    machine.idle()
+def wifi_init():
+    sta = network.WLAN(network.STA_IF)
+    sta.active(True)
+    sta.connect("SSID", "password")
+    if not sta.isconnected():
+        time.sleep(0.5)
+
+def publish(t, h):
+    c=MQTTClient('my_sensor', 'iot.eclipse.org') #change my_sensor!
+    c.connect()
+    c.publish('RIFF/phil/temperature', str(t)) # change the topic tree!
+    c.publish('RIFF/phil/humidity', str(h)) # change the topic tree!
+    c.disconnect()
+
+def wifi_deinit():
+    sta = network.WLAN(network.STA_IF)
+    sta.active(False)
+
+esp.sleep_type(esp.SLEEP_MODEM) #all sleep is modem sleep
+while True:
+    t, h = poll_sensor()
+    wifi_init()
+    publish(t, h)
+    wifi_deinit()
+    time.sleep(60)
 ```
 
+<!-- comments here
+-->
+
+- 5s in each minute to connect to wifi and publish
+- LiPo life approx 153hrs (6.4 days)
+
+<!-- calculation shows better performance but still unsuitable for IOT devices
+-->
 ---
 
-### ISR Guidance
-- Keep the code as short and simple as possible
-- Avoid memory allocation: no appending to lists or insertion into dictionaries, no floating point
-- Where data is shared between the main program and an ISR, consider disabling interrupt prior to accessing the data in the main program and re-enabling them immediately afterwards
-- Allocate an emergency exception buffer to get error messages
+### deepsleep
+- CPU
+- RTC wakes CPU on Pin #
 
-+++
-
-### Interrupt Service Routines - Further Info
-- [micropython.org](http://docs.micropython.org/en/v1.9.3/esp8266/reference/isr_rules.html)
-- [Tim Head's talk](https://www.youtube.com/watch?v=D-5V7s0GflU&t=1657s) at 2017 Pycon
 
 ---
+REPL
+# check micropython docs
+- machine.deepsleep()
+- beware endless deepsleep loops
+ - use machine.reset_cause() & constants
+
+---
+```
+from machine import Pin, I2C
+from dht12 import DHT12
+from umqtt.simple import MQTTClient
+import time
+import network
+import esp
+import machine
+
+def poll_sensor():
+    i2c = I2C(scl = Pin(5), sda = Pin(4))
+    sensor = DHT12(i2c)
+    sensor.measure()
+    t = sensor.temperature()
+    h = sensor.humidity()
+    return t, h
+
+def wifi_init():
+    sta = network.WLAN(network.STA_IF)
+    sta.active(True)
+    sta.connect("SSID", "password")
+    if not sta.isconnected():
+        time.sleep(0.5)
+
+def publish(t, h):
+    c=MQTTClient('my_sensor', 'iot.eclipse.org') #change my_sensor!!
+    c.connect()
+    c.publish('RIFF/phil/temperature', str(t)) # change the topic tree!
+    c.publish('RIFF/phil/humidity', str(h)) # change the topic tree!
+    c.disconnect()
+
+if machine.reset_cause()!= machine.DEEPSLEEP_RESET:
+    time.sleep(20) #allows time to ctrl+C
+
+t, h = poll_sensor()
+wifi_init()
+publish(t, h)
+machine.deepsleep(60)
+
+```
+
+
 
 # micropython refresh
 
