@@ -28,12 +28,16 @@ def publish(t, h):
     c.publish('RIFF/phil/humidity', str(h)) # change the topic tree!
     c.disconnect()
 
+def goto_sleep():
+    rtc = machine.RTC()
+    rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
+    rtc.alarm(rtc.ALARM0, (10000))
+    machine.deepsleep()
+
 if machine.reset_cause()!= machine.DEEPSLEEP_RESET:
     time.sleep(20) #allows time to ctrl+C
 
 t, h = poll_sensor()
 wifi_init()
 publish(t, h)
-rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
-rtc.alarm(rtc.ALARM0, (10000))
-machine.deepsleep()
+goto_sleep()
