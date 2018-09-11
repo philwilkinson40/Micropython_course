@@ -17,7 +17,7 @@ def poll_sensor():
 def wifi_init():
     sta = network.WLAN(network.STA_IF)
     sta.active(True)
-    sta.connect("Wilko Wireless", "WilkoN600")
+    sta.connect("SSID", "password")
     if not sta.isconnected():
         time.sleep(0.5)
 
@@ -28,24 +28,31 @@ def publish(t, h):
     c.publish('RIFF/phil/humidity', str(h)) # change the topic tree!
     c.disconnect()
 
+def goto_sleep():
+    rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
+    rtc.alarm(rtc.ALARM0, (10000))
+    machine.deepsleep()
+
+rtc = machine.RTC()
+
 if machine.reset_cause()!= machine.DEEPSLEEP_RESET:
+    print('not woken from ds')
     time.sleep(20) #allows time to ctrl+C
-    rtc.memory('')
+    data = poll_sensor()
+    rtc.memory(str(data))
+    print(rtc.memory())
+    goto_sleep()
 
-mem = rtc.memory().decode('utf-8')
-mem = mem.split(',') #allows list manipulation
-
-mem.append(poll_sensor())
-
-if len(mem)>=12:
-    wifi_init()
-    c=MQTTClient(config.client_id, config.MQTT_server)
-    c.connect()
-    mem=','.join([str(i) for i in mem])
-    c.publish('RIFF/datadump', mem)
-    c.disconnect()
-    rtc.memory('')
 else:
-    mem.append(new_data)
-    mem=','.join([str(i) for i in mem])
-    rtc.memory(mem)
+    mem = rtc.memory().decode('utf-8')
+    mem = mem.split(',')
+    data=poll_sensor()
+    mem.append(str(data))
+    if len(mem)>=5:
+        print('data collection complete: ', mem)
+        publish(mem, 'h')
+    else:
+        mem=','.join([str(i) for i in mem])
+        rtc.memory(mem)
+        print(rtc.memory())
+        goto_sleep()

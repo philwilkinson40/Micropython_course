@@ -14,7 +14,7 @@ Big thanks to this event supporters
 ---
 
 ### PDPD Micropython News
-- two sessions; ongoing workshop at Artisfactory
+- two sessions; ongoing maker workshop at Artisfactory and CBD Workshops
 - good talks at [Pycon-AU] by Damien and ???
 - also at Europython by ???
 
@@ -82,6 +82,9 @@ Big thanks to this event supporters
 
 ---
 ---?code=code/main_modemsleepex.py&title= using Modem Sleep  main_modemsleepex.py
+@[16-21](wifi initiated in main script)
+@[30-32](wifi deinit as soon as possible)
+@[34-40]
 
 <!-- flowchart and code: switch off wifi when not in use
 -->
@@ -89,22 +92,23 @@ Big thanks to this event supporters
 
 ![](flowcharts/modem_powerchart.gif)
 - 5s in each minute to connect to wifi and publish
-- LiPo life approx 153hrs (6.4 days)
+- LiPo life approx 120.8hrs (5 days)
 
 <!-- calculation shows better performance but still unsuitable for IOT devices
 -->
 ---
 
 ### deepsleep
-- CPU
-- RTC wakes CPU on Pin #
+- wifi unit off, CPU off, RTC is on
+- RTC wakes CPU - GPIO (D0 on Wemos D1 mini)
 
 
 ---
-REPL
+### REPL
 - machine.deepsleep()
 - beware endless deepsleep loops
  - use machine.reset_cause() & constants
+ # add link to micropython docs here
 
 ---
 
@@ -112,11 +116,47 @@ REPL
 
 ---
 ---?code=code/main_deepsleepex.py&title= using Deepsleep  main_deepsleepex.py
+@[31-32](allows user to Ctrl+C when not waking from deepsleep)
+@[34-37]
 
 <!-- flowchart and code: using Deepsleep function
 -->
 ---
 
 ![](flowcharts/deepsleep_powerchart.gif)
+- 5s in each minute to connect to wifi and publish
+- LiPo life approx 342 hours (14 days)
+---
 
+### Deepsleep challenges
+- all memory is lost on deepsleep
+- using EEPROM wears out flash
+- Espressif provided a useful option in RTC
+
+---
+### RTC.memory
+- limited memory available in addition to the clock
+- 256 bytes user memory available (in 4 byte 'units')
+
+---
+### REPL
+- rtc = machine.RTC()
+- rtc.memory(b'')
+- rtc.memory().decode('utf-8')
+
+---
+---
+
+![](flowcharts/rtcmem.gif)
+- 1s every min to poll_sensor
+- 5s every 10 mins connect to wifi and publish
+- LiPo life approx 1987 hours (83 days)
+
+---
+---?code=code/main_rtcmemex.py&title= using RTC memory and Deepsleep  main_rtcmemex.py
+@[]()
+# need to complete the code and walkthrough
+
+<!-- flowchart and code: using RTC.memory function
+-->
 ---

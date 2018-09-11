@@ -17,7 +17,7 @@ def poll_sensor():
 def wifi_init():
     sta = network.WLAN(network.STA_IF)
     sta.active(True)
-    sta.connect("Wilko Wireless", "WilkoN600")
+    sta.connect("SSID", "password")
     if not sta.isconnected():
         time.sleep(0.5)
 
@@ -34,4 +34,6 @@ if machine.reset_cause()!= machine.DEEPSLEEP_RESET:
 t, h = poll_sensor()
 wifi_init()
 publish(t, h)
-machine.deepsleep(60)
+rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
+rtc.alarm(rtc.ALARM0, (10000))
+machine.deepsleep()
