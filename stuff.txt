@@ -1,5 +1,12 @@
 stuff for micropython workshop
 
+import machine
+for i in range(1):
+    rtc=machine.RTC()
+    rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
+    rtc.alarm(rtc.ALARM0, 5000)
+    machine.deepsleep()
+
 ####
 
 from microbit import *

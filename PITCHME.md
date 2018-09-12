@@ -111,9 +111,10 @@ Big thanks to this event supporters
 
 hardware! GPIO-16 connected to reset
 
-```
-rtc.irq(trigger=rtc.ALARM0 wake=machine.DEEPSLEEP)
-rtc.alarm(rtc.ALARM0, (10000))
+```python
+rtc=machine.RTC()
+rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
+rtc.alarm(rtc.ALARM0, 10000)
 machine.deepsleep()
 ```
 
@@ -151,10 +152,11 @@ beware endless deepsleep loops
 
 ---
 ### REPL
-- rtc = machine.RTC()
-- rtc.memory(b'')
-- rtc.memory().decode('utf-8')
-
+```
+rtc = machine.RTC()
+rtc.memory(b'')
+rtc.memory().decode('utf-8')
+```
 
 ---?code=code/main_rtcmemex.py&title= using RTC memory and Deepsleep  main_rtcmemex.py
 @[36]
