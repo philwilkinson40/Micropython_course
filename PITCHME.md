@@ -1,5 +1,5 @@
  ### Micropython MeetUp
- #### PDPD August 2018
+ #### PDPD September 2018
  #### Low Power Mode Options ESP8266
 ![](micropython_logo.png)
 
@@ -17,11 +17,11 @@ Big thanks to this event supporters
 
 ### PDPD Micropython News
 - two sessions; ongoing maker workshop at Artisfactory and CBD Workshops
-- good talks at [Pycon-AU]
- - writing fast and efficient Micropython [Damien George](https://www.youtube.com/watch?v=hHec4qL00x0&t=4s)
-  - asyncio in micropython [Matt Trentini](https://www.youtube.com/watch?v=tIgu7q38bUw&t=4s)
+- good talks at [Pycon-AU](https://www.youtube.com/watch?v=PjiXkJ6P9pQ&list=PLs4CJRBY5F1KrUr7z_2mur2QdAKXyh-k3)
+ - writing fast and efficient uPy [Damien George](https://www.youtube.com/watch?v=hHec4qL00x0&t=4s)
+  - asyncio in uPy [Matt Trentini](https://www.youtube.com/watch?v=tIgu7q38bUw&t=4s)
  - demystifying LoRaWAN with PYCOM  by [Brian Danilko](https://www.youtube.com/watch?v=L-fh7PSpPMc)
- - also [Andrey Vlasovskikh](https://www.youtube.com/watch?v=Hy0W8tBpZu4) at Europython discussing differences in coding micropython
+ - also [Andrey Vlasovskikh](https://www.youtube.com/watch?v=Hy0W8tBpZu4) at Europython discussing differences in coding uPy
 
 ---
 
@@ -41,7 +41,7 @@ Big thanks to this event supporters
 
 ---
 ### use case - environmental sensor
-# need photo here
+![](flowcharts/tempsensorpic.jpg)
 - temperature and humidity readings
 - reading every minute
 - placed within wifi range
@@ -109,17 +109,18 @@ Big thanks to this event supporters
 ---
 ### [deepsleep](http://docs.micropython.org/en/v1.9.2/esp8266/esp8266/tutorial/powerctrl.html) on the REPL
 
-hardware! GPIO-16 connected to reset
+- hardware! GPIO-16 connected to reset
+- beware endless deepsleep loops (no serial connection)
+ - use machine.reset_cause() & constants
 
 ```python
 rtc=machine.RTC()
 rtc.irq(trigger=rtc.ALARM0, wake=machine.DEEPSLEEP)
-rtc.alarm(rtc.ALARM0, 10000)
+rtc.alarm(rtc.ALARM0, 5000)
 machine.deepsleep()
 ```
 
-beware endless deepsleep loops
- - use machine.reset_cause() & constants
+
 
 
 ---
@@ -176,4 +177,10 @@ rtc.memory().decode('utf-8')
 - LiPo life approx 1987 hours (83 days)
 
 ---
+### Next Steps - Lower Power / Longer Life
+- interrogate use-case: Do you really need to poll every minute?
+- optimise hardware
+ - power scavenging options (solar?)
+ - lower power networking (LPWAN e.g. LoRa)
+ - no networking (micro-SD card logger)
 ---
