@@ -39,7 +39,7 @@ Big thanks to this event supporters
 
 <!-- the expected massive explosion in IOT devices relies on three legs.  We will investigate the final leg; Low Power -->
 
----?image=flowcharts/tempsensorpic.jpg&size=60%
+---?image=flowcharts/tempsensorpic.jpg&size=40%&position=right
 ### use case - environmental sensor
 
 - temperature and humidity readings
