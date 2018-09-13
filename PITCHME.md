@@ -22,6 +22,7 @@ Big thanks to this event supporters
   - asyncio in uPy [Matt Trentini](https://www.youtube.com/watch?v=tIgu7q38bUw&t=4s)
  - demystifying LoRaWAN with PYCOM  by [Brian Danilko](https://www.youtube.com/watch?v=L-fh7PSpPMc)
  - also [Andrey Vlasovskikh](https://www.youtube.com/watch?v=Hy0W8tBpZu4) at Europython discussing differences in coding uPy
+- [M5 stack](http://m5stack.com/) offer a new ESP32 option
 
 ---
 
@@ -29,6 +30,7 @@ Big thanks to this event supporters
 
 - refer to previous workshops Github
 - DHT12 sensor and networking
+- [micropython.org](http://docs.micropython.org/en/latest/esp8266/) and [micropython forum](https://forum.micropython.org/)
 
 ---
 #### IOT based solutions
@@ -39,7 +41,7 @@ Big thanks to this event supporters
 
 <!-- the expected massive explosion in IOT devices relies on three legs.  We will investigate the final leg; Low Power -->
 
----?image=flowcharts/tempsensorpic.jpg&size=10%&position=right
+---?image=flowcharts/tempsensorpic.jpg&size=25%&position=right
 ### use case - environmental sensor
 
 - temperature and humidity readings
@@ -184,3 +186,6 @@ rtc.memory().decode('utf-8')
  - lower power networking (LPWAN e.g. LoRa)
  - no networking (micro-SD card logger)
 ---
+### other info
+- deepsleep limit is approx 70 mins
+- [useful library](https://github.com/costastf/micropython_hourly_sleeper_library) to deepsleep for days; uses RTC.memory
