@@ -27,13 +27,16 @@ C:\Users\your_name>python3 -m pip install --upgrade rshell
 - if device is not showing, download [drivers](https://wiki.wemos.cc/downloads) from wemos website
 
 ---
-so lets use rshell
-- rshell has lots of functions password protection, editor selection etc
+
+- rshell has lots of functions password protection, editor selection. 
+- check out its help page 
+
 ```
 C:\Users\your_name>rshell -h
 ```
 
-lets start with the basics - file management & getting to the repl
+- first, start with the basics: file management & getting to the repl
+
 --- 
 
 - in a terminal window
