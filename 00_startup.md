@@ -82,6 +82,48 @@ note: use a forward slash in rshell even when addressing your pc path
 
 ---
 
+### Linux Users ###
+
+- rshell needs Python3
+- virtual env, ubuntu and debian; you may need sudo access
+
+```
+phil@phil:~$ pip3 install rshell
+
+```
+- ensure you have upgraded older versions
+```
+phil@phil:~$ pip3 install rshell --upgrade
+phil@phil:~$ rshell --version
+0.0.17
+phil@phil:~$ 
+```
+- plug in your micropython device
+
+```
+phil@phil:~$ rshell --list
+USB Serial Device 1a86:7523 found @/dev/ttyUSB0
+phil@phil:~$ 
+```
+- use this port to start rshell
+```
+phil@phil:~$ rshell -p /dev/ttyUSB0
+Using buffer-size of 32
+Connecting to /dev/ttyUSB0 (buffer-size 32)...
+Testing if ubinascii.unhexlify exists ... Y
+Retrieving root directories ... /boot.py/ /main.py/
+Setting time ... Feb 09, 2019 13:27:55
+Evaluating board_name ... pyboard
+Retrieving time epoch ... Jan 01, 2000
+Welcome to rshell. Use Control-D (or the exit command) to exit rshell.
+/home/phil>
+```
+- note your board is always called **pyboard**
+
+
+
+---
+
 now start the repl !
 ```
 C:\Users:\your_name> repl
