@@ -1,7 +1,7 @@
 
 ### Interacting with the [ D1 mini](https://wiki.wemos.cc/products:d1:d1_mini) ###
 
-![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_1_16x9.jpg)
+![](flowcharts/d1_mini.jpg)
 
 ---
 
