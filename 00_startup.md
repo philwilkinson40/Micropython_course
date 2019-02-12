@@ -82,6 +82,41 @@ note: use a forward slash in rshell even when addressing your pc path
 
 ---
 
+### Mac Users
+
+- rshell needs Python3
+- install rshell from pip
+
+```
+$ pip install rshell
+```
+
+- download [drivers](https://wiki.wemos.cc/downloads) from wemos website
+- then plug in your micropython device
+
+```
+phil@phil:~$ rshell --list
+USB Serial Device 1a86:7523 found @/dev/cu.usbserial-14610
+phil@phil:~$ 
+```
+- use this port to start rshell
+
+```
+phil@phil:~$ rshell -p /dev/cu.usbserial-14610
+Using buffer-size of 32
+Connecting to /dev/ttyUSB0 (buffer-size 32)...
+Testing if ubinascii.unhexlify exists ... Y
+Retrieving root directories ... /boot.py/ /main.py/
+Setting time ... Feb 09, 2019 13:27:55
+Evaluating board_name ... pyboard
+Retrieving time epoch ... Jan 01, 2000
+Welcome to rshell. Use Control-D (or the exit command) to exit rshell.
+/home/phil>
+```
+- note your board is always called **pyboard**
+
+---
+
 ### Linux Users ###
 
 - rshell needs Python3
