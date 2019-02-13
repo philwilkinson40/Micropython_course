@@ -1,5 +1,4 @@
 Big thanks to this event supporters
-![](https://www.perth.wa.gov.au/sites/default/files/styles/medium_rounded_corners/public/news/thumbnails/cop-logo-newsroom-thumbnail-new.jpg?itok=qZOGls4g)
 
 ![](https://uploads-ssl.webflow.com/5a04456bb45010000164c58f/5ac6e8a1e4871de747635287_Screen%20Shot%202018-04-06%20at%2011.24.58%20am-p-500.png)
 
@@ -7,8 +6,8 @@ Big thanks to this event supporters
 
 ---
 
-### Micropython Intro - PDPD July 2018###
-![](https://docs.pycom.io/img/micropython.jpg)
+### Micropython Intro - PDPD Feb 2019###
+![](micropython_logo.png)
 
 <!--
 Speaker Notes:
@@ -31,9 +30,8 @@ optimised to run in *constrained environments*
 
 specficially microcontrollers; limited RAM & flash
 
-- PDPD [MeetUp talk by Adrian](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/237034592/) in 2017
-- PDPD [MeetUp talk by Phil](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/250001244/) in May 2018
-- PDPD [solder session](https://www.meetup.com/en-AU/Perth-Django-Users-Group/events/251611417/) - soldering and [flashing micropython firmware](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#getting-the-firmware)
+- [flashing micropython firmware](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html#getting-the-firmware)
+- 
 
 
   <!--
@@ -70,85 +68,6 @@ discuss UART, SPI, I2C, A0
 pinout diagram
 
 -->
-
-+++
-
-![](https://wiki.wemos.cc/_media/products:d1:d1_mini_v3.0.0_2_16x9.jpg)
-
----
-
-### interacting with the esp8266 ###
-1.  WINDOWS/OSX install [drivers](https://wiki.wemos.cc/downloads)
-1.  - linux/OSX download rhsell
-
-  ```
-  sudo pip3 install rshell
-  ```
-    - WINDOWS install [mpfshell](https://github.com/wendlers/mpfshell) following [these instructions](https://gist.github.com/hardye/657385210c5d613e69cb5ba95e8c57a7)
-
-<p style="text-align: left;"> RSHELL is simple shell, developed in python good support on [Micropython forum](https://forum.micropython.org/) </p>
-
-+++
-
-<p style="text-align: left;"> other options for interacting with ESP8266: </p>
-- [WEBREPL](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html#webrepl-a-prompt-over-wifi) via wifi
-- [AMPY](https://learn.adafruit.com/micropython-basics-load-files-and-run-code/install-ampy) from Adafruit
-- [Mu editor](https://codewith.mu/) (not yet available for ESP)
-- direct interaction with board: [micropython.org](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/repl.html)
-
----
-
-### using RSHELL ###
-
-- follow the RSHELL and MPFSHELL guides on the readme.md on the GITHUB pages
-- identify the correct port connected ls /dev/
-launch shell
-```
-rshell --buffer-size=30 -a -p /dev/ttyUSB0
-```
-- list files on d1 mini, then copy a file to the board, then remove
-```
-ls /pyboard
-cp Documents/main.py /pyboard
-rm /pyboard/main.py
-```
-- enter (repl) and leave (ctrl+x) the REPL is easy  
-
-+++
-
-<table>
-  <tr>
-    <th>command</th>
-    <th>RSHELL</th>
-    <th>mpfshell</th>
-  </tr>
-  <tr>
-    <td> launch shell </td>
-    <td> rshell --buffer-size=30 -a -p /dev/ttyUSB0 </td>
-    <td> python {path to mpfshell.py} </br> open COM#  </td>
-  </tr>
-  <tr>
-    <td> list files on d1 mini </td>
-    <td> ls /pyboard </td>
-    <td> ls  </td>
-  </tr>  
-  <tr>
-    <td> copy file to d1 mini</td>
-    <td> cp Documents/main.py /pyboard </td>
-    <td> put main.py </br>(main.py must be in local folder) </td>
-  </tr>
-  <tr>
-    <td> enter repl </td>
-    <td> repl </td>
-    <td> repl </td>
-  </tr>
-  <tr>
-    <td> exit repl </td>
-    <td> ctrl + x </td>
-    <td> ctrl + Q </td>
-  </tr>
-</table>
-
 
 ---
 ### Using micropython ###
