@@ -28,7 +28,11 @@ http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 *Reinterpretation* of Python 3.4
 optimised to run in *constrained environments*
 
-specficially microcontrollers; limited RAM & flash
+- specficially microcontrollers; limited RAM & flash
+- power consumption
+  - ~80 mA during connection to WiFi
+  - ~15 uA during a deepsleep
+  - Raspberry Pi 3 in idle is 0.3A !
 
 
 
@@ -101,6 +105,17 @@ introduction to micropython specific modules
 understand the 'u' prefix
 get help at http://docs.micropython.org/en/v1.9.2/esp8266/index.html
 -->
+
+---
+
+### main ways to interact with microcontrollers ###
+
+- direct REPL ~ quick testing & behaviour
+- paste mode ~ copy blocks of code from editor to REPL
+- IDE ~ use text editor and microcontroller filesystem
+  - upy always runs boot.py then main.py on boot
+
+
 ---
 ### 'hello world' of microcontrollers ###
 
