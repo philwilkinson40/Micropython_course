@@ -318,6 +318,7 @@ while True:
 	time.sleep(10)
 ```
 
+
 +++
 
 if you want to download a simple MQTT client on your laptop, consider mosquitto
