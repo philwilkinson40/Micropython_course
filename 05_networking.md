@@ -278,7 +278,7 @@ challenges
 
 +++
 
-![](MQTToverview.png)
+![](MQTToverview.gif)
 
 +++
 
