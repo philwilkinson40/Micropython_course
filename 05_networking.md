@@ -6,7 +6,7 @@ Big thanks to this event supporters
 
 ---
 
-### Micropython Intro - PDPD May 2019###
+### Micropython Intro - Networks - PDPD May 2019 ###
 ![](micropython_logo.png)
 
 <!--
@@ -28,7 +28,7 @@ http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 *Reinterpretation* of Python 3.4
 optimised to run in *constrained environments*
 
-- 
+
 
 
 
@@ -215,6 +215,7 @@ Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523
 ### polling sensor ###
 
 use [dht12 library](https://github.com/mcauser/micropython-dht12)
+also available using [upip](https://docs.micropython.org/en/latest/reference/packages.html#upip-package-manager)
 ```
 import time
 import dht12
@@ -229,7 +230,6 @@ while True:
 	time.sleep(10)
 ```
 
-TASK establish mean temperature across 2 mins polling every 20 seconds
 
 
 ---
@@ -261,6 +261,12 @@ while True:
    data = s.recv(500)
    print(str(data, 'utf8'), end='')
 ```
+---
+
+challenges
+
+- building [resilient code](https://github.com/peterhinch/micropython-samples/tree/master/resilient) (frequent wifi network dropouts)
+
 ---
 
 ### [MQTT](http://mqtt.org/) ###
