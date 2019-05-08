@@ -6,14 +6,14 @@ Big thanks to this event supporters
 
 ---
 
-### Micropython Intro - PDPD Feb 2019###
+### Micropython Intro - Networks - PDPD May 2019 ###
 ![](micropython_logo.png)
 
 <!--
 Speaker Notes:
 Short personal introduction
 
-short intro course in Micropython,
+part of a larger  intro course in Micropython,
 
 note that much of the tech info provided here is taken from micropython.org
 the course borrows heavily from Radomir's course for the D1 mini
@@ -28,11 +28,7 @@ http://micropython-on-wemos-d1-mini.readthedocs.io/en/latest/index.html
 *Reinterpretation* of Python 3.4
 optimised to run in *constrained environments*
 
-- specficially microcontrollers; limited RAM & flash
-- power consumption
-  - ~80 mA during connection to WiFi
-  - ~15 uA during a deepsleep
-  - Raspberry Pi 3 in idle is 0.3A !
+
 
 
 
@@ -74,6 +70,18 @@ pinout diagram
 -->
 
 ---
+
+### [FiPy](https://pycom.io/solutions/hardware/) ###
+
+![](code/fipy.jpg)
+
+<!-- 
+speaker notes
+although the wemos has a wifi chip, Pycom's dev boards have a range of networking options
+
+-->
+
+---
 ### Using micropython ###
 
 #### Basic REPL interface ####
@@ -97,7 +105,7 @@ also be able to use a text editor and paste function in repl
 - esp8266 modules
  - esp, [machine](https://docs.micropython.org/en/latest/esp8266/library/machine.html)
 - micropython modules
- - gc, uos, network, etc
+ - gc, uos
 
 <!--
 speaker Notes
@@ -207,6 +215,7 @@ Freq; c: 262, 'd': 294, 'e': 330, 'f': 349, 'g': 392, 'a': 440,'b': 494,'C': 523
 ### polling sensor ###
 
 use [dht12 library](https://github.com/mcauser/micropython-dht12)
+also available using [upip](https://docs.micropython.org/en/latest/reference/packages.html#upip-package-manager)
 ```
 import time
 import dht12
@@ -221,12 +230,11 @@ while True:
 	time.sleep(10)
 ```
 
-TASK establish mean temperature across 2 mins polling every 20 seconds
 
 
 ---
 ### network module ###
-connecting to local wifi network
+connecting to local wifi network (not as a access point)
 ```
  import network
  sta = network.WLAN(network.STA_IF)
@@ -253,6 +261,12 @@ while True:
    data = s.recv(500)
    print(str(data, 'utf8'), end='')
 ```
+---
+
+challenges
+
+- building [resilient code](https://github.com/peterhinch/micropython-samples/tree/master/resilient) (frequent wifi network dropouts)
+
 ---
 
 ### [MQTT](http://mqtt.org/) ###
