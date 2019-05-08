@@ -90,7 +90,7 @@ although the wemos has a wifi chip, Pycom's dev boards have a range of networkin
 - input history, tab completion
 - paste mode (ctrl + e)
 - modules, functions, classes
-- lists, tuples, dictionaries
+- lists, tuples, dictionarieshttp://www.elec/code/tronicwings.com/public/images/user_images/images/NodeMCU/NodeMCU%20Basics%20using%20ESPlorer%20IDE/NodeMCU%20MQTT%20Client/MQTT%20Broker%20nw.png
 
 <!--
 speaker Notes
@@ -277,9 +277,11 @@ challenges
 -  and/or network bandwidth is at a premium.
 
 +++
-![](http://www.electronicwings.com/public/images/user_images/images/NodeMCU/NodeMCU%20Basics%20using%20ESPlorer%20IDE/NodeMCU%20MQTT%20Client/MQTT%20Broker%20nw.png)
+
+![](MQTToverview.png)
 
 +++
+
 ### MQTT publish using [uMQTT.simple](https://github.com/micropython/micropython-lib/tree/master/umqtt.simple)
 
 ```
