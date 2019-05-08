@@ -328,29 +328,6 @@ mosquitto_sub -h 'iot.eclipse.org' -t RIFF/#
 ```
 a good simple phone MQTT client is [MQTT dashboard](https://play.google.com/store/apps/details?id=com.thn.iotmqttdashboard&hl=en_AU) for Android
 
----
-
-### Shenton Park Dogs' Refuge Home ###
-![](http://www.dogshome.org.au/themes/blackcandy/images/dogs-home-perth.gif)
-
- <!--
- speaker notes -
-lets transfer our knowledge on the d1 mini to a real use case
- -->
-
-
-+++
-![](https://static1.squarespace.com/static/55d675c5e4b0ea1246287574/561d31dae4b00e055e2dad4a/561d31f1e4b07930589695a8/1444753906476/pact-ShentonParkDogRefuge-001.JPG)
-
----
-
-### Shenton Park Dogs' Refuge Home - use case ###
-- alert nearby workers when a kennel temp is high
-- alarm nearby workers when a kennel temp and humidity is high
-- provide office workers with 3 minute temperature and humidity readings
-- give audible and visual alert in office when kennel temp is high
-- provide phone alert if temp/humidity rises out of office hours
-- write a python script for the office computer to record data over a (paho-mqtt library)
 
 ---
 
